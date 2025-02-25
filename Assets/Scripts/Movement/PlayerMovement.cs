@@ -2,15 +2,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private float _Gravity;
+    [SerializeField] private float _PlayerVelocity;
+
+    [SerializeField] private float _MovementSpeed;
+
+    [SerializeField] private float _JumpThrust;
+
+    [SerializeField] private Rigidbody2D _Rigidbody;
+    private float position = 0f;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        Move();
+    }
+
+    void Move()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("dfsf");
+            _Rigidbody.AddForce(transform.up * _JumpThrust, ForceMode2D.Impulse);
+        }
     }
 }
