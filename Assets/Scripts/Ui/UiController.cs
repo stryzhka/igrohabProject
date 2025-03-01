@@ -3,8 +3,12 @@ using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
-    public PlayerStatsController PlayerStatsController;
-    public Text HealthPointsText;
+    [SerializeField] private PlayerStatsController PlayerStatsController;
+    [SerializeField ] private Text HealthPointsText;
+
+    [SerializeField] private GameObject AlivePanel;
+    [SerializeField] private GameObject DeadPanel; 
+
     void Start()
     {
         
@@ -13,5 +17,11 @@ public class UiController : MonoBehaviour
     void Update()
     {
         HealthPointsText.text = PlayerStatsController.GetHealthPointsText();
+    }
+
+    public void DeadState()
+    {
+        AlivePanel.SetActive(false);
+        DeadPanel.SetActive(true);
     }
 }

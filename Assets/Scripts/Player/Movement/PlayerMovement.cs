@@ -21,9 +21,14 @@ public class PlayerMovement : MonoBehaviour
 
     public static event Action<Item> ItemCollisionInvoked;
 
-    void Start()
+    void OnEnable()
     {
         MovementInput.JumpInvoked += DoJump;
+    }
+
+    void OnDisable()
+    {
+        MovementInput.JumpInvoked -= DoJump;
     }
 
     
