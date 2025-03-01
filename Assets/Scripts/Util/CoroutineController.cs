@@ -7,4 +7,14 @@ public class CoroutineController : MonoBehaviour
     {
         StartCoroutine(CameraController.CameraTilt());
     }   
+
+    public void CameraZoom()
+    {
+        StartCoroutine(CameraController.CameraZoom());
+    }  
+
+    public void CameraZoomForTime()
+    {
+        StartCoroutine(CameraController.CameraZoomForTime(5));
+    }  
 }

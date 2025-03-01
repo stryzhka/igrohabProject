@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
@@ -32,14 +33,46 @@ public class PlayerStatsController : MonoBehaviour
         PlayerStats.SetHealthPoints(PlayerStats.GetHealthPoints() - dmg);
         CoroutineController.CameraTilt();
     }
+
+    public void Heal(int set)
+    {
+        PlayerStats.SetHealthPoints(PlayerStats.GetHealthPoints() + set);
+        CoroutineController.CameraZoom();
+    }
+
+    public void AddSpeedBonus(float bonus)
+    {
+        CoroutineController.CameraZoomForTime();
+        PlayerStats.SetSpeedBonus(bonus);
+        StartCoroutine(SpeedBonusBack());
+    }
+
+
+    
+    public void AddScore(int set)
+    {
+        PlayerStats.SetScore(PlayerStats.GetScore() + set);
+        CoroutineController.CameraZoom();
+    }   
     public string GetHealthPointsText()
     {
-        return "Health: " + PlayerStats.GetHealthPoints().ToString();
+        return "Здоровье: " + PlayerStats.GetHealthPoints().ToString();
+    }
+
+    public string GetScoreText()
+    {
+        return "Очки: " + PlayerStats.GetScore().ToString();
     }
 
     private void CheckPlayerDead(){
         if (PlayerStats.GetHealthPoints() <= 0){
             PlayerDead?.Invoke(SceneController.SceneState.PlayerDead);
         }
+    }
+
+    private IEnumerator SpeedBonusBack()
+    {
+        yield return new WaitForSeconds(5f);
+        PlayerStats.SetSpeedBonus(0f);
     }
 }

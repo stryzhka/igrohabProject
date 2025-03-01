@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform _camera;
+    [SerializeField] private Camera _camera;
     [SerializeField] private float _rotatingSpeed;
     public bool _isRotating = false;
+    public bool _isFoving = false;
     public float rotate;
+
+    public float fov;
 
     void Start()
     {
@@ -17,10 +20,18 @@ public class CameraController : MonoBehaviour
     {
         float lerp = 1 - Mathf.Exp(-Time.deltaTime * _rotatingSpeed);
         if (_isRotating)
-            rotate = Mathf.Lerp(_camera.rotation.z, 360f, lerp);
+            rotate = Mathf.Lerp(_camera.transform.rotation.z, 360f, lerp);
         else
-            rotate = Mathf.Lerp(_camera.rotation.z, 0f, lerp);
-        _camera.rotation = Quaternion.Euler(0, 0, rotate);
+            rotate = Mathf.Lerp(_camera.transform.rotation.z, 0f, lerp);
+        _camera.transform.rotation = Quaternion.Euler(0, 0, rotate);
+
+        float fovLerp = 1 - Mathf.Exp(-Time.deltaTime * _rotatingSpeed);
+        if (_isFoving)
+                fov = Mathf.Lerp(_camera.orthographicSize, 10f, fovLerp);
+        else   
+            fov = Mathf.Lerp(_camera.orthographicSize, 5f, fovLerp); 
+        _camera.orthographicSize = fov;
+
     }
 
     public IEnumerator CameraTilt()
@@ -29,6 +40,27 @@ public class CameraController : MonoBehaviour
         _isRotating = true;
         yield return new WaitForSeconds(0.1f);
         _isRotating = false;
+        
+    }
+
+    public IEnumerator CameraZoom()
+    {
+        if (!_isFoving)
+        {
+            _isFoving = true;
+            yield return new WaitForSeconds(0.1f);
+            _isFoving = false;
+        }
+        
+        
+    }
+
+    public IEnumerator CameraZoomForTime(float time)
+    {
+        
+        _isFoving = true;
+        yield return new WaitForSeconds(time);
+        _isFoving = false;
         
     }
 }
