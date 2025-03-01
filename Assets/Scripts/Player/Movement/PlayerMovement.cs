@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float _moveX;
     public bool _onGround;
 
-    
+    public static event Action<Item> ItemCollisionInvoked;
 
     void Start()
     {
@@ -57,5 +58,13 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            ItemCollisionInvoked?.Invoke(collision.gameObject.GetComponent<Item>());
+        }
+    }
+
+
 }

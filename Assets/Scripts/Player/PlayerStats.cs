@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -13,5 +14,15 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public int GetHealthPoints()
+    {
+        return HealthPoints;
+    }
+
+    public void SetHealthPoints(int set)
+    {
+        HealthPoints = set;
     }
 }
