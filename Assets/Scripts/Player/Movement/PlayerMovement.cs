@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private PlayerStats PlayerStats;
     [SerializeField] private MovementInput MovementInput;
     [SerializeField] private float _MovementSpeed;
 
@@ -18,11 +20,16 @@ public class PlayerMovement : MonoBehaviour
     private float _moveX;
     public bool _onGround;
 
-    
+    public static event Action<Item> ItemCollisionInvoked;
 
-    void Start()
+    void OnEnable()
     {
         MovementInput.JumpInvoked += DoJump;
+    }
+
+    void OnDisable()
+    {
+        MovementInput.JumpInvoked -= DoJump;
     }
 
     
@@ -41,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             _moveX = MovementInput.GetMoveX();
             if (_moveX != 0)
             {
-                var impulse = (-_moveX * _MovementSpeed * Mathf.Deg2Rad ) * _Rigidbody.inertia; 
+                var impulse = (-_moveX * (_MovementSpeed + PlayerStats.GetSpeedBonus()) * Mathf.Deg2Rad ) * _Rigidbody.inertia; 
                 _Rigidbody.AddTorque(impulse, ForceMode2D.Impulse);
             }
         }
@@ -57,5 +64,13 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            ItemCollisionInvoked?.Invoke(collision.gameObject.GetComponent<Item>());
+        }
+    }
+
+
 }

@@ -34,10 +34,7 @@ public class MovementInput : MonoBehaviour
         }
     }
 
-    public void DoJump()
-    {
-        
-    }
+    
     public float GetMoveX()
     {
         return _moveX;
