@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private Transform _PlayerFollow;
+    [SerializeField] private float _DampTime = 5f;
+
+    [SerializeField] private float _xOffset, _yOffset = 0;
+
+    [SerializeField] private float _margin = 0.1f;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _rotatingSpeed;
     public bool _isRotating = false;
@@ -10,6 +16,8 @@ public class CameraController : MonoBehaviour
     public float rotate;
 
     public float fov;
+
+    
 
     void Start()
     {
@@ -31,6 +39,14 @@ public class CameraController : MonoBehaviour
         else   
             fov = Mathf.Lerp(_camera.orthographicSize, 5f, fovLerp); 
         _camera.orthographicSize = fov;
+
+        float targetX = _PlayerFollow.position.x + _xOffset;
+		float targetY = _PlayerFollow.position.y + _yOffset;
+		if (Mathf.Abs(transform.position.x - targetX) > _margin)
+			targetX = Mathf.Lerp(transform.position.x, targetX, _DampTime * Time.deltaTime);
+		if (Mathf.Abs(transform.position.y - targetY) > _margin)
+			targetY = Mathf.Lerp(transform.position.y, targetY, _DampTime * Time.deltaTime);
+		transform.position = new Vector3(targetX, targetY, transform.position.z);
 
     }
 

@@ -416,10 +416,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 700, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -844,10 +844,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f51ebb1955377a4e8a2f02959a7db30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 519420032}
+  _PlayerFollow: {fileID: 660288943}
+  _DampTime: 5
+  _xOffset: 0
+  _yOffset: 0
+  _margin: 0.001
+  _camera: {fileID: 519420031}
   _rotatingSpeed: 4
   _isRotating: 0
+  _isFoving: 0
   rotate: 0
+  fov: 0
 --- !u!1 &555964666
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +905,7 @@ MonoBehaviour:
   HealthPoints: 100
   Lives: 3
   Score: 0
+  SpeedBonus: 0
 --- !u!4 &555964669
 Transform:
   m_ObjectHideFlags: 0
@@ -1439,6 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5429c3871088a2e4d9bcae617bf22162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerStats: {fileID: 555964668}
   MovementInput: {fileID: 660288948}
   _MovementSpeed: 3
   _JumpThrust: 9
