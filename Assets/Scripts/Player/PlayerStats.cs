@@ -9,8 +9,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int Score;
 
     [SerializeField] private float SpeedBonus;
-    void Start()
+    void Awake()
     {
+        //DontDestroyOnLoad(this.gameObject);
         
     }
 
@@ -20,6 +21,14 @@ public class PlayerStats : MonoBehaviour
         
     }
 
+    public int GetLives()
+    {
+        return Lives;
+    }
+    public void SetLives(int set)
+    {
+        Lives = set;
+    }
     public float GetSpeedBonus()
     {
         return SpeedBonus;

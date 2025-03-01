@@ -22,7 +22,11 @@ public class SceneController : MonoBehaviour
         PlayerStatsController.PlayerDead -= SetSceneState;
     }
 
-    // Update is called once per frame
+    void Awake()
+    {
+        //DontDestroyOnLoad(this.gameObject);
+
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))

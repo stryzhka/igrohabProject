@@ -11,9 +11,13 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameObject AlivePanel;
     [SerializeField] private GameObject DeadPanel; 
 
-    void Start()
+    void OnEnable()
     {
-        
+        //PlayerStatsController.PlayerDead += SetHearts;
+    }
+    void OnDisable()
+    {
+        //PlayerStatsController.PlayerDead += SetHearts;
     }
 
     void Update()
@@ -27,4 +31,5 @@ public class UiController : MonoBehaviour
         AlivePanel.SetActive(false);
         DeadPanel.SetActive(true);
     }
+
 }

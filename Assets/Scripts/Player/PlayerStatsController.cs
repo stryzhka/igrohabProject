@@ -19,9 +19,15 @@ public class PlayerStatsController : MonoBehaviour
         PlayerMovement.ItemCollisionInvoked -= ItemAction;
     }
 
+    void Start()
+    {
+        
+        
+    }
+
     void Update()
     {
-        CheckPlayerDead();
+        
     }
 
     private void ItemAction(Item itemClass)
@@ -32,6 +38,7 @@ public class PlayerStatsController : MonoBehaviour
     {
         PlayerStats.SetHealthPoints(PlayerStats.GetHealthPoints() - dmg);
         CoroutineController.CameraTilt();
+        CheckPlayerDead();
     }
 
     public void Heal(int set)
@@ -54,6 +61,7 @@ public class PlayerStatsController : MonoBehaviour
         PlayerStats.SetScore(PlayerStats.GetScore() + set);
         CoroutineController.CameraZoom();
     }   
+
     public string GetHealthPointsText()
     {
         return "Здоровье: " + PlayerStats.GetHealthPoints().ToString();
@@ -67,8 +75,11 @@ public class PlayerStatsController : MonoBehaviour
     private void CheckPlayerDead(){
         if (PlayerStats.GetHealthPoints() <= 0){
             PlayerDead?.Invoke(SceneController.SceneState.PlayerDead);
+            
         }
     }
+
+    
 
     private IEnumerator SpeedBonusBack()
     {
