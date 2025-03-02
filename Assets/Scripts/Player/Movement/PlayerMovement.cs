@@ -46,11 +46,18 @@ public class PlayerMovement : MonoBehaviour
         if (_onGround)
         {
             _moveX = MovementInput.GetMoveX();
-            if (_moveX != 0)
+            if (_moveX != 0 && _Rigidbody.angularDamping >= -600 && _Rigidbody.angularDamping <= 600)
             {
                 var impulse = (-_moveX * (_MovementSpeed + PlayerStats.GetSpeedBonus()) * Mathf.Deg2Rad ) * _Rigidbody.inertia; 
                 _Rigidbody.AddTorque(impulse, ForceMode2D.Impulse);
             }
+        }
+        else
+        {
+            _moveX = MovementInput.GetMoveX();
+                var impulse = (_moveX * _MovementSpeed) / 8; 
+                _Rigidbody.AddForce(new(impulse, 0f), ForceMode2D.Force);
+            
         }
     }
 
